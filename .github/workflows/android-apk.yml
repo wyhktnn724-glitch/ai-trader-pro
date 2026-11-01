@@ -1,0 +1,50 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Extract project
+        run: |
+          unzip -q AI_TRADER_PRO_MOBILE_V2_2.zip -d extracted
+          ls -la extracted
+
+      - name: Prepare Flutter
+        working-directory: extracted/AI_TRADER_PRO_MOBILE_V2
+        run: flutter create . --platforms=android,ios
+
+      - name: Install packages
+        working-directory: extracted/AI_TRADER_PRO_MOBILE_V2
+        run: flutter pub get
+
+      - name: Analyze
+        working-directory: extracted/AI_TRADER_PRO_MOBILE_V2
+        run: flutter analyze
+
+      - name: Test
+        working-directory: extracted/AI_TRADER_PRO_MOBILE_V2
+        run: flutter test
+
+      - name: Build APK
+        working-directory: extracted/AI_TRADER_PRO_MOBILE_V2
+        run: flutter build apk --release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AI-TRADER-PRO-APK
+          path: extracted/AI_TRADER_PRO_MOBILE_V2/build/app/outputs/flutter-apk/app-release.apk
