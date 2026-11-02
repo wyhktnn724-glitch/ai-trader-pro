@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#081321"><meta name="description" content="AI TRADER PRO - تحلیل تکنیکال بازار">
+<link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./assets/icon-192.png">
+<title>AI TRADER PRO</title><link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header><div class="brand"><div class="logo">AT</div><div><h1>AI TRADER PRO</h1><small>SMART MARKET ANALYSIS</small></div></div><button id="settingsBtn" class="ghost">⚙ تنظیمات</button></header>
+<main>
+<div class="notice">تحلیل تکنیکال آموزشی است؛ سیگنال‌ها احتمال برد یا تضمین سود نیستند. برنامه سفارش معامله ارسال نمی‌کند.</div>
+<section class="panel controls">
+<div><label>بازار</label><select id="market"><option value="crypto">رمزارز (Binance)</option><option value="forex">فارکس و طلا (Twelve Data)</option></select></div>
+<div><label>نماد</label><select id="symbol"></select></div>
+<div><label>تایم‌فریم</label><select id="tf"><option>1m</option><option>5m</option><option>15m</option><option>30m</option><option>1h</option><option>4h</option><option>1day</option></select></div>
+<button id="analyzeBtn" class="primary">تحلیل بازار</button>
+</section>
+<section class="panel result">
+<div class="row between"><div><span class="muted">سیگنال فعلی</span><h2 id="direction">منتظر تحلیل</h2></div><div class="score"><strong id="strength">—</strong><small>قدرت توافق</small></div></div>
+<div class="price" id="price">—</div><div class="grid three">
+<div class="metric"><small>RSI</small><b id="rsi">—</b></div><div class="metric"><small>EMA 20 / 50</small><b id="ema">—</b></div><div class="metric"><small>MACD</small><b id="macd">—</b></div>
+<div class="metric"><small>ATR</small><b id="atr">—</b></div><div class="metric"><small>حمایت</small><b id="support">—</b></div><div class="metric"><small>مقاومت</small><b id="resistance">—</b></div>
+</div>
+<div class="grid three levels"><div><small>Entry</small><b id="entry">—</b></div><div><small>Stop Loss</small><b id="sl">—</b></div><div><small>Take Profit</small><b id="tp">—</b></div></div>
+<h3>نمودار کندلی</h3><canvas id="chart" height="220"></canvas><h3>دلایل تحلیل</h3><ul id="reasons"><li>هنوز تحلیلی انجام نشده است.</li></ul>
+</section>
+<section class="grid two">
+<div class="panel"><h3>اسکنر بازار</h3><p class="muted">نمادهای فهرست‌شده را با تایم‌فریم انتخابی بررسی می‌کند.</p><button id="scanBtn" class="secondary">شروع اسکن</button><div id="scanResults"></div></div>
+<div class="panel"><h3>بک‌تست ساده</h3><p class="muted">شبیه‌سازی تاریخی با ورود کندل بعدی و برخورد محافظه‌کارانه حد ضرر.</p><button id="backtestBtn" class="secondary">اجرای بک‌تست</button><div id="backtestResults"></div></div>
+</section>
+<section class="panel"><h3>تاریخچه سیگنال‌ها</h3><button id="clearHistory" class="ghost">پاک کردن تاریخچه</button><div id="history" class="history">هنوز سیگنالی ذخیره نشده است.</div></section>
+<footer>نسخه وب مستقل • داده زنده نیازمند اینترنت است • منبع قیمت ممکن است با بروکر شما تفاوت داشته باشد.</footer>
+</main>
+<dialog id="settings"><form method="dialog"><h3>تنظیمات داده</h3><label for="apiKey">Twelve Data API Key (فقط برای فارکس/طلا)</label><input id="apiKey" type="password" placeholder="API Key"><p class="muted">کلید در localStorage همین مرورگر ذخیره می‌شود؛ آن را در دستگاه مشترک وارد نکنید.</p><div class="row end"><button value="cancel" class="ghost">لغو</button><button id="saveKey" value="default" class="primary">ذخیره</button></div></form></dialog>
+<div id="toast" role="status"></div>
+<script src="./app.js"></script>
+</body></html>
